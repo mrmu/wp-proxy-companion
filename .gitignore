@@ -1,0 +1,10 @@
+*
+!sample.env
+!docker-compose.yml
+!.gitignore
+!README.md
+
+!nginx
+nginx/*
+!nginx/custom.conf
+!nginx.tmpl
