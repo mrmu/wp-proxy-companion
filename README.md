@@ -1,4 +1,4 @@
-#WP Proxy Companion
+# WP Proxy Companion
 
 ## 參考來源
 https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion/blob/master/docs/Advanced-usage.md
@@ -23,7 +23,7 @@ https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion/blob/master/doc
 ```
 * 現在 wp proxy companion 會在背景運行，之後只要有新的網站容器加入，並且設定了 VIRTUAL_HOST 環境變數， wp proxy companion 就會幫忙完成反向代理，讓該網址可以指向正確的網站容器；若設定了 LETSENCRYPT_HOST 變數 (需先完成網址 DNS 指向)，wp proxy companion 就會在 5~30 秒內自動安裝 HTTPS (Let's Encrypt) 憑證。
 
-* 開始建立 WordPress 網站，請另外使用這個 Repo：wp-proxy-sites
+* 開始建立 WordPress 網站，請另外使用這個 Repo：WP Proxy Sites (https://github.com/mrmu/wp-proxy-sites)
 
 ## 其他
 * 查詢 let's encrypt 憑證的狀況
