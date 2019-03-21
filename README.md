@@ -4,7 +4,7 @@
 https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion/blob/master/docs/Advanced-usage.md
 
 ## 說明
-本 Repo 為建立一個自動申請及更新 Let's Encrypt 憑證的 Container (將使用 80 及 443 Port)，並且可以讓多個網站容器共用。網站容器的實際設定在另一個 Repo：WP Proxy Sites (https://github.com/mrmu/wp-proxy-sites)，請搭配使用。
+本 Repo 為建立一個自動申請及更新 Let's Encrypt 憑證的 Container (將使用 80 及 443 Port)，並且可以讓多個網站容器共用。網站容器的實際設定在另一個 Repo：WP Proxy Sites ( https://github.com/mrmu/wp-proxy-sites )，請搭配使用。
 
 ## 運作原理說明
 以 Nginx 作為 Reverse Proxy 的 Container，並以 Docker-gen 監看 Docker Network 裡各網站的 VIRTUAL_HOST 及 LETSENCRYPT_HOST 設定，生成 Nginx Conf 檔，依據設定自動在幾秒內生成憑證並且自動更新。
