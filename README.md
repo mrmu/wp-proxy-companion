@@ -54,6 +54,8 @@ https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion/blob/master/doc
 9. 基本上 Wp-Proxy-Companion 就是執行一次放在背景跑，之後開發網站時除非發生嚴重錯誤，否則幾乎不太會再動到它了。
 
 ## 工作流程
+<img width="1434" alt="wp-proxy-scope" src="https://user-images.githubusercontent.com/271049/61531755-5ddc2d80-aa5a-11e9-9383-ac099f4eb3a6.png">
+
 本 docker-compose.yml 共設定三個容器：
 1. wp-proxy：它的 image 來源是 nginx，主要是拿來作反向代理，看要將請求轉向哪個網站容器 (WP + apache)
 2. wp-proxy-gen：它的 image 來源是 jwilder/docker-gen，主要是自動產生對應網站容器的 nginx 設定檔，如果 docker 跑起來了，但瀏覽器卻連不到網站容器，很大的可能是 docker-gen 沒有正確完成它的工作，此時要去 nginx/ 下查看 default.conf 有沒有生成，並且看 default.conf 的內容有沒有該網站容器的設定。
