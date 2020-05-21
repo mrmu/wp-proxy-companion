@@ -4,7 +4,7 @@
 https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion/blob/master/docs/Advanced-usage.md
 
 ## 說明
-本 Repo 為建立一個自動申請及更新 Let's Encrypt 憑證的 Container (將使用 80 及 443 Port)，並且可以讓多個網站容器共用。本專案是一個組合技概念，需要兩個 Repo 合作才能運行，所以設定完本 Repo "Wp Proxy Companion"後，還需要另一個 Repo：WP Proxy Sites ( https://github.com/mrmu/wp-proxy-sites ) 來負責網站各容器的實際設定，請搭配使用。
+本 Repo 為建立一個自動申請及更新 Let's Encrypt 憑證的 Container (將使用 80 及 443 Port)，並且可以讓多個網站容器共用。本專案是一個組合技概念，需要兩個 Repo 合作才能運行，所以設定完本 Repo "Wp Proxy Companion"後，還需要另一個 Repo：WP Proxy Sites ( https://github.com/mrmu/wp-proxy-sites ) 來負責網站各容器的實際設定，請搭配使用。另外，以下說明均以 Ubuntu 指令介紹。
 
 ## 運作原理說明
 以 Nginx 作為 Reverse Proxy 的 Container，並以 Docker-gen 監看 Docker Network 裡各網站的 VIRTUAL_HOST 及 LETSENCRYPT_HOST 設定，生成 Nginx Conf 檔，依據設定自動在幾秒內生成憑證並且自動更新。
@@ -34,7 +34,7 @@ https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion/blob/master/doc
     ```
     sudo usermod -a -G docker 你的帳號
     ```
-2. 請確認 80/443/3306 Port 有開啟並且沒有被其他服務佔用 (因為接下來 wp-proxy-companion 會佔用它們，如果已經有在跑 apache/nginx、mysql/mariaDB 等服務，請先停止或另尋其他空間安裝)。
+2. 請確認 80/443/3306 Port 有開啟並且沒有被其他服務佔用 (因為接下來 wp-proxy-companion 會佔用它們，如果已經有在跑 apache/nginx、mysql/mariaDB 等服務，請先停止或另尋其他空間安裝，要停止常見的服務比如 apache 就用 sudo service apache2 stop 就好)。
     ```
     sudo lsof -i -P -n | grep LISTEN
     ```
