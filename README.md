@@ -54,7 +54,7 @@ https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion/blob/master/doc
     cd /var/docker-www/
     git clone https://github.com/mrmu/wp-proxy-companion.git
     ```
-6. 進入 wp-proxy-companion 目錄，你可以瞄一下 docker-compose.yml 看看待會要建立的容器內容，後面會有說明，現在我們先開始建立容器，下指令：
+6. 進入 wp-proxy-companion 目錄，你可以瞄一下 docker-compose.yml 看看待會要建立的容器內容，後面會有說明，現在我們先開始建立容器，下指令 (如果下完指令發生錯誤訊息，很可能是 Port 有被佔用，請見上方第2步的說明來排除問題，排除後再執行一次以下指令應該就會成功了)：
     ```
     docker-compose up -d --build
     ```
