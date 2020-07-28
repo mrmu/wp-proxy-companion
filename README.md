@@ -66,6 +66,9 @@ https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion/blob/master/doc
 
 8. 現在開始建立 WordPress 網站，請安裝運行：WP Proxy Sites ( https://github.com/mrmu/wp-proxy-sites )
 
+8. 如果出現 502 bad gateway，請先檢查 companion/nginx/conf.d/default 裡有沒有對應到 wp-proxy-sites/docker-compose.yml 裡定義的網站容器網址，若沒有就要檢查 volumn 是否有正確設定對應到 /var/www/html/。若還是 502，要檢查 wp-proxy-sites/docker-compose.yml 的 docker network 設定與 companion 是否一致，可用 docker network ls 看有沒有異常。
+
+
 9. 基本上 Wp-Proxy-Companion 就是執行一次放在背景跑，之後開發網站時除非發生嚴重錯誤，否則幾乎不太會再動到它了。
 
 ## 工作流程
