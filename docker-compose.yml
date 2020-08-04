@@ -37,7 +37,7 @@ services:
         max-file: "10"
 
   wp-proxy-letsencrypt:
-    image: jrcs/letsencrypt-nginx-proxy-companion
+    image: jrcs/letsencrypt-nginx-proxy-companion:v1.12
     container_name: wp-proxy-letsencrypt
     restart: always
     volumes:

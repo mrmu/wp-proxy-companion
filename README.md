@@ -4,7 +4,7 @@
 https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion/blob/master/docs/Advanced-usage.md
 
 ## 說明
-本 Repo 為建立一個自動申請及更新 Let's Encrypt 憑證的 Container (將使用 80 及 443 Port)，並且可以讓多個網站容器共用。本專案是一個組合技概念，需要兩個 Repo 合作才能運行，所以設定完本 Repo "Wp Proxy Companion"後，還需要另一個 Repo：WP Proxy Sites ( https://github.com/mrmu/wp-proxy-sites ) 來負責網站各容器的實際設定，請搭配使用。
+本 Repo 為建立一個自動申請及更新 Let's Encrypt 憑證的 Container (將使用 80 及 443 Port)，並且可以讓多個網站容器共用。本專案是一個組合技概念，需要兩個 Repo 合作才能運行，所以設定完本 Repo "Wp Proxy Companion"後，還需要另一個 Repo：WP Proxy Sites ( https://github.com/mrmu/wp-proxy-sites ) 來負責網站各容器的實際設定，請搭配使用。另外，以下說明均以 Ubuntu 指令介紹。
 
 ## 運作原理說明
 以 Nginx 作為 Reverse Proxy 的 Container，並以 Docker-gen 監看 Docker Network 裡各網站的 VIRTUAL_HOST 及 LETSENCRYPT_HOST 設定，生成 Nginx Conf 檔，依據設定自動在幾秒內生成憑證並且自動更新。
@@ -34,7 +34,7 @@ https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion/blob/master/doc
     ```
     sudo usermod -a -G docker 你的帳號
     ```
-2. 請確認 80/443/3306 Port 有開啟並且沒有被其他服務佔用 (因為接下來 wp-proxy-companion 會佔用它們，如果已經有在跑 apache/nginx、mysql/mariaDB 等服務，請先停止或另尋其他空間安裝)。
+2. 請確認 80/443/3306 Port 有開啟並且沒有被其他服務佔用 (因為接下來 wp-proxy-companion 會佔用它們，如果已經有在跑 apache/nginx、mysql/mariaDB 等服務，請先停止或另尋其他空間安裝，要停止常見的服務比如 apache 就用 sudo service apache2 stop 就好)。
     ```
     sudo lsof -i -P -n | grep LISTEN
     ```
@@ -54,7 +54,7 @@ https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion/blob/master/doc
     cd /var/docker-www/
     git clone https://github.com/mrmu/wp-proxy-companion.git
     ```
-6. 進入 wp-proxy-companion 目錄，你可以瞄一下 docker-compose.yml 看看待會要建立的容器內容，後面會有說明，現在我們先開始建立容器，下指令：
+6. 進入 wp-proxy-companion 目錄，你可以瞄一下 docker-compose.yml 看看待會要建立的容器內容，後面會有說明，現在我們先開始建立容器，下指令 (如果下完指令發生錯誤訊息，很可能是 Port 有被佔用，請見上方第2步的說明來排除問題，排除後再執行一次以下指令應該就會成功了)：
     ```
     docker-compose up -d --build
     ```
@@ -65,6 +65,9 @@ https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion/blob/master/doc
 8. Wp Proxy Companion 正常運作後，request 會是由 nginx 先處理，再進行反向代理指向正確的網站容器(apache)，所以預設找不到的情況下就會出現 503 Service Temporarily Unavailable，現在還沒有加入任何網站容器，你開瀏覽器輸入 該主機 ip 或指向該主機的網址就會顯示 503。
 
 8. 現在開始建立 WordPress 網站，請安裝運行：WP Proxy Sites ( https://github.com/mrmu/wp-proxy-sites )
+
+8. 如果出現 502 bad gateway，請先檢查 companion/nginx/conf.d/default 裡有沒有對應到 wp-proxy-sites/docker-compose.yml 裡定義的網站容器網址，若沒有就要檢查 volumn 是否有正確設定對應到 /var/www/html/。若還是 502，要檢查 wp-proxy-sites/docker-compose.yml 的 docker network 設定與 companion 是否一致，可用 docker network ls 看有沒有異常。
+
 
 9. 基本上 Wp-Proxy-Companion 就是執行一次放在背景跑，之後開發網站時除非發生嚴重錯誤，否則幾乎不太會再動到它了。
 
