@@ -61,7 +61,7 @@ https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion/blob/master/doc
     ```
     docker-compose up -d --build
     ```
-7. 現在 wp proxy companion 會在背景運行監看，之後只要有新的網站容器加入，companion 就會自動做完指向的工作。以下是實際工作的說明，如果沒興趣可往下一步XD… 
+7. 現在 wp proxy companion 會在背景運行監看，之後只要有新的網站容器加入，companion 就會自動做完指向的工作。以下是實際工作的說明，如果沒興趣可往下一步XD… (若發生錯誤是跟 80 port 被暫用有關，試著停止常見會佔用 80 port 的服務比如 apache 就用 sudo service apache2 stop) 
 
     總之，companion 只要確認新的網站容器設定了 VIRTUAL_HOST 環境變數， wp proxy companion 就會幫忙完成反向代理，讓該網址可以指向正確的網站容器；若之後再設定 LETSENCRYPT_HOST 變數 (需先完成網址 DNS 指向)，wp proxy companion 就會在 5~30 秒內通知 Let's Encrypt 發出 challenge 請求，通過後就會自動安裝 HTTPS (Let's Encrypt) 憑證。在全站網址改為 https 前，請確認 wp-proxy-companion/nginx/certs 裡有該網域的憑證檔 (*.chain.pem, *.key, *.crt, *.dhparam.pem)
 
