@@ -33,6 +33,8 @@ https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion/blob/master/doc
     * 將自己的帳號加入 docker 群組，從此下指令就不加 sudo (下完指令下次登入後生效)：
     ```
     sudo usermod -a -G docker 你的帳號
+
+    sudo usermod -a -G www-data 你的帳號
     ```
 2. 請確認 80/443/3306 Port 有開啟並且沒有被其他服務佔用 (因為接下來 wp-proxy-companion 會佔用它們，如果已經有在跑 apache/nginx、mysql/mariaDB 等服務，請先停止或另尋其他空間安裝，要停止常見的服務比如 apache 就用 sudo service apache2 stop 就好)。
     ```
@@ -50,7 +52,8 @@ https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion/blob/master/doc
     ```
     cd /var
     sudo mkdir docker-www
-    sudo chown 可寫入權限:可寫作權限 docker-www
+    sudo chown www-data:www-data docker-www
+    sudo chmod g+w docker-www
     cd /var/docker-www/
     git clone https://github.com/mrmu/wp-proxy-companion.git
     ```
