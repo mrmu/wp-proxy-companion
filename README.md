@@ -38,6 +38,10 @@ https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion/blob/master/doc
     ```
 2. 請確認 80/443/3306 Port 有開啟並且沒有被其他服務佔用 (因為接下來 wp-proxy-companion 會佔用它們，如果已經有在跑 apache/nginx、mysql/mariaDB 等服務，請先停止或另尋其他空間安裝，要停止常見的服務比如 apache 就用 sudo service apache2 stop 就好)。
     ```
+    // 避免主機重啟時會自動啟用 apache 佔用80 port，導致 wp-proxy 起不
+    sudo systemctl stop apache2.service
+    sudo systemctl disable apache2.service
+
     sudo lsof -i -P -n | grep LISTEN
     ```
 3. 請先建立 Docker Network 以便之後串連 Wp Proxy Companion 和 Wp Proxy Sites，預設取名為 wp-proxy，指令如下：
