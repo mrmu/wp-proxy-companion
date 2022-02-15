@@ -7,8 +7,13 @@
 !nginx
 nginx/*
 !nginx/.gitkeep
+!nginx/nginx.conf
 !nginx/conf.d
 nginx/conf.d/*
 !nginx/conf.d/custom.conf
+
+!nginx/html
+nginx/html/*
+!nginx/html/503.html
 
 !nginx.tmpl
